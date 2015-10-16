@@ -19,8 +19,7 @@ public class User {
     private String password_sec;
 
 
-    @Many(target = Bill.class, field = "id")
-
+    @Many(target = Bill.class, field = "user_id")
     private List<Bill> bills;
 
     @Column

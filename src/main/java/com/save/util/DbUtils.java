@@ -9,10 +9,13 @@ import javax.sql.DataSource;
  * Created by wsdevotion on 15/10/14.
  */
 public class DbUtils {
+    private static Dao nutzDao;
 
     public static Dao getNutzDao() {
-        return new NutDao((DataSource) SpringFactory.getObject("dataSource"));
+        if (nutzDao == null) {
+            nutzDao = new NutDao((DataSource) SpringFactory.getObject("ds"));
+        }
+
+        return nutzDao;
     }
-
-
 }

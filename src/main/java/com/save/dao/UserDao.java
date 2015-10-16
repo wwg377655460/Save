@@ -35,8 +35,6 @@ public class UserDao extends DbFactory<User> {
         return getDao().update(user);
     }
 
-    //更新用户信息
-    public
 
     //注册
     public User insertUser(User user){

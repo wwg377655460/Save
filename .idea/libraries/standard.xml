@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="standard">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/IdeaProjects/A_Phone/WebRoot/WEB-INF/lib/standard.jar!/" />
+      <root url="jar://$USER_HOME$/IdeaProjects/A_Phone/WebRoot/WEB-INF/lib/spring-aop-3.2.8.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/IdeaProjects/A_Phone/WebRoot/WEB-INF/lib/spring-aspects-3.2.8.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

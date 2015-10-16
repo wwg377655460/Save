@@ -2,6 +2,7 @@ package com.save.controller.base;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by wsdevotion on 15/10/14.
  */
 public abstract class BaseController {
+    @ResponseBody
     @ExceptionHandler
     public String exception(HttpServletRequest request, Exception e) {
 
