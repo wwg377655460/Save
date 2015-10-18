@@ -13,6 +13,7 @@ import com.save.entity.User;
 import com.save.util.Data;
 import com.save.util.Md5;
 import com.save.util.TimeUtil;
+import com.save.util.UrlUtils.OnlineMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +41,7 @@ public class UserController {
     BillDao billDao;
 
     //登录
+    @OnlineMethod(memo = "登录", param = "", method = "post", url ="/login", type = 1)
     @ResponseBody
     @RequestMapping("/login")
     @Transactional(rollbackFor = {Exception.class})
@@ -60,6 +62,7 @@ public class UserController {
     }
 
     //获取用户账单信息
+    @OnlineMethod(memo = "获取用户账单信息", param = "", method = "post", url ="/getBillsMessage", type = 1)
     @ResponseBody
     @RequestMapping("/getBillsMessage")
     @Transactional(rollbackFor = {Exception.class})
@@ -77,6 +80,7 @@ public class UserController {
     }
 
     //获取用户信息
+    @OnlineMethod(memo = "获取用户信息", param = Data.getUserMessage, method = "post", url ="/getUserMessage", type = 1)
     @ResponseBody
     @RequestMapping("/getUserMessage")
     @Transactional(rollbackFor = {Exception.class})
@@ -91,6 +95,7 @@ public class UserController {
     }
 
     //上传用户账户信息
+    @OnlineMethod(memo = "上传用户账户信息", param = "", method = "post", url ="/updateUserMessage", type = 1)
     @ResponseBody
     @RequestMapping("/updateUserMessage")
     @Transactional(rollbackFor = {Exception.class})
@@ -139,6 +144,7 @@ public class UserController {
     }
 
     //注册
+    @OnlineMethod(memo = "注册", param = Data.getUserMessage, method = "post", url ="/insert", type = 1)
     @ResponseBody
     @RequestMapping("/insert")
     public String insertUserController(@RequestBody String jsonObject) {

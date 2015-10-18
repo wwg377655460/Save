@@ -5,9 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.save.controller.base.BaseController;
 import com.save.dao.TimeDao;
 import com.save.entity.Time;
+import com.save.util.Data;
 import com.save.util.MathUtil;
 import com.save.util.TimeUtil;
 import com.save.util.TurnTypeNum;
+import com.save.util.UrlUtils.OnlineMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +29,8 @@ public class BillController extends BaseController{
     @Resource
     TimeDao timeDao;
 
+    //获取最可能的类型
+    @OnlineMethod(memo = "获取最可能的类型", param = "", method = "post", url ="/getMaxType", type = 1)
     @ResponseBody
     @RequestMapping("/getMaxType")
     @Transactional(rollbackFor = {Exception.class})
