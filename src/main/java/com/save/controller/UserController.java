@@ -155,7 +155,6 @@ public class UserController {
         user.setPassword(Md5.MD5(user.getPassword() + Data.Salt));
         User user1 = userdao.getUserMes(user.getUsername());
         JSONObject json = new JSONObject();
-        User user_new = userdao.insertUser(user);
         if (user1 == null) {
             //注册
             userdao.insertUser(user);
