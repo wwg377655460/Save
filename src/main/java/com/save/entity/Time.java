@@ -55,6 +55,32 @@ public class Time {
     @Column
     private int type_19;
 
+    public Time setTime(int id, String time, int type_0, int type_1, int type_2, int type_3, int type_4, int type_5, int type_6, int type_7, int type_8, int type_9, int type_10, int type_11, int type_12, int type_13, int type_14, int type_15, int type_16, int type_17, int type_18, int type_19) {
+        this.id = id;
+        this.time = time;
+        this.type_0 = type_0;
+        this.type_1 = type_1;
+        this.type_2 = type_2;
+        this.type_3 = type_3;
+        this.type_4 = type_4;
+        this.type_5 = type_5;
+        this.type_6 = type_6;
+        this.type_7 = type_7;
+        this.type_8 = type_8;
+        this.type_9 = type_9;
+        this.type_10 = type_10;
+        this.type_11 = type_11;
+        this.type_12 = type_12;
+        this.type_13 = type_13;
+        this.type_14 = type_14;
+        this.type_15 = type_15;
+        this.type_16 = type_16;
+        this.type_17 = type_17;
+        this.type_18 = type_18;
+        this.type_19 = type_19;
+        return this;
+    }
+
     public int getId() {
         return id;
     }

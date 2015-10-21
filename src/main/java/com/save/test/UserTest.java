@@ -69,21 +69,21 @@ public class UserTest {
     public void getMaxType(){
 
 
-        String url = "http://localhost:8080/getMemoMes";
-        String s = HttpRequestJ.post(url, "");
-        System.out.println(s);
-
-//        JSONObject json = new JSONObject();
-//        json.put("time",System.currentTimeMillis());
-//
-//        for(int i=0; i<20; i++){
-//            json.put("type_"+i, 1);
-//        }
-//
-//        String url = "http://localhost:8080/getMaxType";
-//        String param = json.toString();
-//        String s = HttpRequestJ.post(url, param);
+//        String url = "http://localhost:8080/getMemoMes";
+//        String s = HttpRequestJ.post(url, "");
 //        System.out.println(s);
+
+        JSONObject json = new JSONObject();
+        json.put("time",System.currentTimeMillis());
+
+        for(int i=0; i<20; i++){
+            json.put("type_"+i, 1);
+        }
+
+        String url = "http://localhost:8080/getMaxType";
+        String param = json.toString();
+        String s = HttpRequestJ.post(url, param);
+        System.out.println(s);
     }
 
 

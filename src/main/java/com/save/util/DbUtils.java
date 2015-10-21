@@ -1,5 +1,6 @@
 package com.save.util;
 
+import com.save.entity.Time;
 import org.nutz.dao.Dao;
 import org.nutz.dao.impl.NutDao;
 
@@ -15,6 +16,7 @@ public class DbUtils {
         if (nutzDao == null) {
             nutzDao = new NutDao((DataSource) SpringFactory.getObject("ds"));
         }
+
 
         return nutzDao;
     }

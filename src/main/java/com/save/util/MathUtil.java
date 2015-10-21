@@ -51,11 +51,11 @@ public class MathUtil {
     public static Map<Integer, Double> getMap(int timeType) {
         Map<Integer, Double> map = new HashMap<Integer, Double>();
         for (int i = 0; i < Data.Type_num; i++) {
-            String s = Data.strings[timeType][i];
-            String mes[] = s.split(":");
-            Integer k = Integer.parseInt(mes[0]);
-            Double d = Double.parseDouble(mes[1]);
-            map.put(k, d);
+//            String s = Data.strings[timeType][i];
+//            String mes[] = s.split(":");
+//            Integer k = Integer.parseInt(mes[0]);
+//            Double d = Double.parseDouble(mes[1]);
+//            map.put(k, d);
         }
 
         return map;
