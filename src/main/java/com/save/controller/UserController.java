@@ -3,6 +3,7 @@ package com.save.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.save.controller.base.BaseController;
 import com.save.dao.BillDao;
 import com.save.dao.TimeDao;
 import com.save.dao.UserDao;
@@ -13,9 +14,11 @@ import com.save.util.Data;
 import com.save.util.Md5;
 import com.save.util.TimeUtil;
 import com.save.util.UrlUtils.OnlineMethod;
+import com.save.util.isSecUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -26,7 +29,7 @@ import java.util.List;
  * Created by wsdevotion on 15/10/14.
  */
 @Controller
-public class UserController {
+public class UserController extends BaseController {
 
     @Resource
     UserDao userdao;
@@ -39,15 +42,21 @@ public class UserController {
     BillDao billDao;
 
     //登录
-    @OnlineMethod(memo = "登录", param = "", method = "post", url ="/login", type = 1)
+    @OnlineMethod(memo = "登录", param = "", method = "post", url = "/login", type = 1)
     @ResponseBody
     @RequestMapping("/login")
     @Transactional(rollbackFor = {Exception.class})
     public String loginUserController(String json) {
-        JSONObject jsonObject = JSON.parseObject(json);
+        JSONObject jsonObject = isSecUtil.isSecMes(json);
+        JSONObject jsons = new JSONObject();
+        //如果判断加密信息不正确返回0
+        if (jsonObject == null) {
+            jsons.put("status", "0");
+            return jsons.toString();
+        }
+//        JSONObject jsonObject = JSON.parseObject(json);
         String username = jsonObject.getString("username");
         String password = jsonObject.getString("password");
-        JSONObject jsons = new JSONObject();
         String password_m = Md5.MD5(password + Data.Salt);
         User user = userdao.loginUser(username, password_m);
         if (user == null) {
@@ -60,49 +69,96 @@ public class UserController {
     }
 
     //获取用户账单信息
-    @OnlineMethod(memo = "获取用户账单信息", param = "", method = "post", url ="/getBillsMessage", type = 1)
+    @OnlineMethod(memo = "获取用户账单信息", param = "", method = "post", url = "/getBillsMessage", type = 1)
     @ResponseBody
     @RequestMapping("/getBillsMessage")
     @Transactional(rollbackFor = {Exception.class})
-    public String getUserBillsMes(String json){
-        JSONObject jsonObject = JSON.parseObject(json);
-        String username = jsonObject.getString("username");
-        List<Bill> userBill = userdao.getUserBill(username);
-        String bills = JSON.toJSONString(userBill);
-        JSONArray bills_arr = (JSONArray) JSONArray.parse(bills);
+    public String getUserBillsMes(String json) {
+        //判断信息的安全
+        JSONObject jsonObject = isSecUtil.isSecMes(json);
         JSONObject jsons = new JSONObject();
-        jsons.put("result",1);
-        jsons.put("bills",bills_arr);
+        //如果判断加密信息不正确返回0
+        if (jsonObject == null) {
+            jsons.put("status", "0");
+            return jsons.toString();
+        }
+//        JSONObject jsons = new JSONObject();
 
-        return json.toString();
+//        JSONObject jsonObject = JSON.parseObject(json);
+        String username = jsonObject.getString("username");
+        String password = jsonObject.getString("password");
+        User user = userdao.getUserMes(username);
+        if (user != null) {
+            //密码是否正确，几个接口需要密码
+            password = Md5.MD5(password + Data.Salt);
+            if (user.getPassword().equals(password)) {
+                List<Bill> userBill = userdao.getUserBill(username);
+                String bills = JSON.toJSONString(userBill);
+                JSONArray bills_arr = (JSONArray) JSONArray.parse(bills);
+                jsons.put("result", 1);
+                jsons.put("bills", bills_arr);
+            }
+        }
+        jsons.put("result", "0");
+        return jsons.toString();
     }
 
     //获取用户信息
-    @OnlineMethod(memo = "获取用户信息", param = Data.getUserMessage, method = "post", url ="/getUserMessage", type = 1)
+    @OnlineMethod(memo = "获取用户信息", param = Data.getUserMessage, method = "post", url = "/getUserMessage", type = 1)
     @ResponseBody
     @RequestMapping("/getUserMessage")
     @Transactional(rollbackFor = {Exception.class})
     public String getUserMes(String json) {
-        JSONObject jsonObject = JSON.parseObject(json);
+        JSONObject jsonObject = isSecUtil.isSecMes(json);
+        JSONObject jsons = new JSONObject();
+        //如果判断加密信息不正确返回0
+        if (jsonObject == null) {
+            jsons.put("status", "0");
+            return jsons.toString();
+        }
+//        JSONObject jsons = new JSONObject();
+//        JSONObject jsonObject = JSON.parseObject(json);
         String username = jsonObject.getString("username");
+        String password = jsonObject.getString("password");
         User user = userdao.getUserMes(username);
-        user.setPassword("");
-        String jsons = JSON.toJSONString(user);
-        return jsons;
+        if (user == null) {
+            jsons = new JSONObject();
+            jsons.put("status", "0");
+        } else {
+            //判断用户上传密码是否正确
+            password = Md5.MD5(password + Data.Salt);
+            if (user.getPassword().equals(password)) {
+                user.setPassword("");
+                jsons = (JSONObject) JSONObject.toJSON(user);
+                jsons.put("status", "1");
+            } else {
+                jsons.put("status", "0");
+                return jsons.toString();
+            }
+        }
+        return jsons.toString();
+
     }
 
     //上传用户账户信息
-    @OnlineMethod(memo = "上传用户账户信息", param = "", method = "post", url ="/updateUserMessage", type = 1)
+    @OnlineMethod(memo = "上传用户账户信息", param = "", method = "post", url = "/updateUserMessage", type = 1)
     @ResponseBody
     @RequestMapping("/updateUserMessage")
     @Transactional(rollbackFor = {Exception.class})
     public String updateUserMes(String json) {
+        JSONObject jsonObject = isSecUtil.isSecMes(json);
+        JSONObject jsonObject1 = new JSONObject();
+        //如果判断加密信息不正确返回0
+        if (jsonObject == null) {
+            jsonObject1.put("status", "0");
+            return jsonObject1.toString();
+        }
+//        JSONObject jsonObject1 = new JSONObject();
         User user = JSON.parseObject(json.toString(), User.class);
         User user_n = userdao.getUserMes(user.getUsername());
         user_n.setGet_money_bef(user.getGet_money_bef());
         user_n.setPay_money_bef(user.getPay_money_bef());
         userdao.updateUser(user_n);
-        JSONObject jsonObject1 = new JSONObject();
         List<Bill> bills = user.getBills();
         for (Bill bill : bills) {
             //获取类型，更改用户统计表
@@ -133,24 +189,28 @@ public class UserController {
 
     }
 
-    @ResponseBody
     @RequestMapping("/test")
     public String test() {
-        return "123awda";
+        return "test";
     }
 
     //注册
-    @OnlineMethod(memo = "注册", param = Data.getUserMessage, method = "post", url ="/insert", type = 1)
+    @OnlineMethod(memo = "注册", param = Data.getUserMessage, method = "post", url = "/insert", type = 1)
     @ResponseBody
     @RequestMapping("/insert")
     public String insertUserController(String json) {
-
-//        String jsonObject = "{\"password\":\"123\",\"password_sec\":\"123\",\"username\":\"wer\"}";
+        JSONObject jsonObject = isSecUtil.isSecMes(json);
+        JSONObject jsons = new JSONObject();
+        //如果判断加密信息不正确返回0
+        if (jsonObject == null) {
+            jsons.put("status", "0");
+            return jsons.toString();
+        }
+//        JSONObject jsons = new JSONObject();
 //        System.out.println(jsonObject);
         User user = JSON.parseObject(json.toString(), User.class);
         user.setPassword(Md5.MD5(user.getPassword() + Data.Salt));
         User user1 = userdao.getUserMes(user.getUsername());
-        JSONObject jsons = new JSONObject();
         if (user1 == null) {
             //注册
             userdao.insertUser(user);

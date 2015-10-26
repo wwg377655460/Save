@@ -18,7 +18,6 @@ public class User {
     @Column
     private String password_sec;
 
-
     @Many(target = Bill.class, field = "user_id")
     private List<Bill> bills;
 

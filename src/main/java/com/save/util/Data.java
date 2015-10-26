@@ -14,6 +14,25 @@ public class Data {
     public final static int Type_num = 20;//类型的数量
     public final static int Time_num = 13;//时间类型的数量
 
+    public static String key = "A1B2C3D4E5F60708";
+
+    public final static String pub = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCMIVUfXRO3UbPqeQqrcVOr4ywbbPBzj5LlqOA8\n" +
+            "teTikn+eaDJckP3oVChf6zsfzTC471B0Eo93MPX0lVK3CyxXZOpPiWpOZ4kMmgI1N4F+Q9BGVDEc\n" +
+            "EhnVp3XhumMt2dnNjt4ec3pTtohKclUpdr2Dzf88hVQA2cQSIi3zf257OwIDAQAB";
+
+    public final static String pri = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAIwhVR9dE7dRs+p5CqtxU6vjLBts\n" +
+            "8HOPkuWo4Dy15OKSf55oMlyQ/ehUKF/rOx/NMLjvUHQSj3cw9fSVUrcLLFdk6k+Jak5niQyaAjU3\n" +
+            "gX5D0EZUMRwSGdWndeG6Yy3Z2c2O3h5zelO2iEpyVSl2vYPN/zyFVADZxBIiLfN/bns7AgMBAAEC\n" +
+            "gYBRl9cIvBmO1HP+QxyDVylxHIXCMlyP7TmLoBlxQDhV9Rd6FRG99G7jqJ0ZvM5gZgnIpRAjhesj\n" +
+            "a87K62eOTWMzYshHATuKDLvSymsFYY63bt8d8r8cxq34wg9YnrKmhoMy6gE+5iP80t7SuAy7X8Oz\n" +
+            "ALZ/JyQD6zw2yyU3UmoIAQJBAMx2xourwtiyC5Ov4vhSGVR9htIxPX07c3dhTDWGL3axQtF0GJll\n" +
+            "srCqRFq8YZiGdrl4YZyDLhzroYXsT/cEuUECQQCvc1y0TvId/RytCAuIyotFQbPnIZOe/l+4Bc6i\n" +
+            "vB0GPwUEHyYcZVOxovNejPNc/KQTEVJI3I5eYza0wZGOajl7AkBulQq6/bGLK3hxbt5NuXFzrdRe\n" +
+            "GD2OXroLZfcmt6UyB5sA1056oHMtc1k2zc3nBUpu8zmvwY8OGy6n1PBGxCpBAkEAjmgqlMeHScQK\n" +
+            "JH/lLNCJnlsn9LCSK3j4pFtCT2A0hr9cCO5ndqDf/8ztkI8DcTQ20Ks8iJtMi1woKSr8RAYARQJB\n" +
+            "AMDCdAz2elK6X3bw0jSbKOmtsxmx6KJ8gHKuXG51wgEqFpGcftAzPusvnI1Ih+5hhDnsch2rrrU9\n" +
+            "ntLjNxpxAgQ=";
+
     public final static String getUserMessage = "{\"username\":\"wer\"}";
 
 
